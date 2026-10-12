@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automation Engine</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 16px;
+            background: #22c55e;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1e293b;
+            border-radius: 10px;
+            min-height: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⚡ Automation Engine</h1>
+    <p>Click to run your automation</p>
+
+    <button onclick="runAutomation()">Run Automation</button>
+
+    <div id="output">Result will show here...</div>
+
+    <script>
+        async function runAutomation() {
+            document.getElementById("output").innerText = "Running...";
+
+            try {
+                let res = await fetch("/run");
+                let data = await res.json();
+                let output = 
+
+                document.getElementById("output").innerText =
+                    JSON.stringify(data, null, 2);
+
+                data.steps.forEach(step => {
+                    let p = document.createElement("p");
+                    p.innerText = step;
+                    document.getElementById("output").appendChild(p);
+                });
+            } catch (err) {
+                document.getElementById("output").innerText =
+                    "Error: " + err;
+            }
+        }
+    </script>
+
+</body>
+</html>
